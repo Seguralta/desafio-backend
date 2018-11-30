@@ -17,18 +17,14 @@ Confortável com a responsabilidade de criar, gerir e publicar aplicações.
 - Experiência em Desenvolvimento de software Web.
 
 
-### O que oferecemos
-- Oportunidade de desenvolvimento profissional
-- Ginástica laboral
-- No dress code
-- Vale alimentação/refeição, auxílio transporte, assistência médica e odontológica
-
 
 ### Instruções para o desafio
 
 - **Fork** esse repositório e faça o desafio numa branch com o seu nome (exemplo: `nome-sobrenome`);
 - Assim que concluir o seu desafio, abra um **pull request** com suas alterações.
 
+### Tempo gasto
+- Recomendamos dispensar aténo máximo 10 horas neste projeto.
 
 ### Desafio
 - Desenvolver uma aplicação web responsável por gerenciar o cadsatro completo de usuários via API.
@@ -40,7 +36,6 @@ Confortável com a responsabilidade de criar, gerir e publicar aplicações.
 	- Inserir usuário via API validando Nome completo e CPF, sendo o e-mail compo único.
 - Método API (POST) : Edição do usuário
 - Método API (DELETE) : Remoção do usuário
-
 
 
 Qualquer solução de base de dados ou armazenamento será aceita.
