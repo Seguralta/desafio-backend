@@ -7,7 +7,7 @@ use App\Model\UserModel;
 use Illuminate\Support\Facades\Validator;
 
 class User extends Controller
-{
+{    
     /**
      * Boa vinda
      *
@@ -79,15 +79,37 @@ class User extends Controller
      */
     public function advice(){
         $arrayJson = array(
-            "error" => "User method PUT for update"
+            "error" => "Use method PUT for update"
         );
         return response()->json($arrayJson, 200);
     }
+    /**
+     * Altera o usuáro
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return json Retorna um JSON com os dados do usuário alterado ou com a mensagem de erro 
+     */
     public function update(Request $request, $id){
         $store = $this->store($request);
         if( is_array($store) ){
             return response()->json($store, 400);
         }
+        $user = new UserModel;
+        $result = $user->findOrFail($id)->update($request->all());
+        if($result){            
+            $arrayJson = $user->find($id);
+            unset($arrayJson['password']); // remove pra não mostrar na resposta      
+            return response()->json($arrayJson, 200);      
+        }     
+    }
+    /**
+     * Deleta o usuário
+     *
+     * @param int $id Campo id do usuário na table users
+     * @return json Retorna um JSON com a mensagem de sucesso ou de erro 
+     */
+    public function delete($id){
         $user = new UserModel;
         $result = $user->find($id);
         if($result == null){
@@ -96,9 +118,12 @@ class User extends Controller
             );
             return response()->json($arrayJson, 404);
         }else{
-            $arrayJson = $result->getAttributes();
-            unset($arrayJson['password']); // remove pra não mostrar na resposta            
-        }           
+            $user->find($id)->delete();
+            $arrayJson = array(
+                "message" => "User deleted"
+            );
+            return response()->json($arrayJson, 200);
+        }        
     }
     /**
      * Faz as validações

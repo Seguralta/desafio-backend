@@ -46,6 +46,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if( $request->method() == 'PUT' ){ // Customizei para retornar um JSON
+            $arrayJson = array(
+                "error" => 'Not found' // $exception->getMessage()
+            );
+            return response()->json($arrayJson, 404);
+        }else{
+            return parent::render($request, $exception);
+        }        
     }
 }
