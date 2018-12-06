@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('authapi')->post('/user', function (Request $request) {
+    echo 'ok';
+    //return $request->user();
+});
