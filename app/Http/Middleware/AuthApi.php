@@ -21,7 +21,7 @@ class AuthApi
             );
             return response()->json($arrayJson, 401);
         }else{
-            $base64Key = base64_encode('GrupoZanon'); // Em uma api para vários clientes trocaria GrupoZanon por uma busca no banco de dados por chaves privadas dos clientes
+            $base64Key = base64_encode('GrupoZanon'); // Em uma api para vários clientes trocaria GrupoZanon por uma busca no banco de dados por chaves privadas dos clientes | optei por não utilizar env('APP_KEY','');
             $arrayAuthorization = explode('Basic ', $request->header('Authorization'));
             $authorization = $arrayAuthorization[1];
             if( $authorization != $base64Key ){
