@@ -9,13 +9,45 @@ use Illuminate\Support\Facades\Validator;
 class User extends Controller
 {
     /**
+     * Boa vinda
+     *
+     * @param Request $request
+     * @return json Retona um JSON com o nome e a versão da API
+     */
+    public function index(){
+        $arrayJson = array(
+            "api" => "Grupo Zanon",
+            "version" => "1.0"
+        );
+        return response()->json($arrayJson, 200);
+    }
+    /**
+     * Dados do usuário
+     *
+     * @param int $id Campo id do usuário na table users
+     * @return json Retorna um JSON com os dados do usuário ou com a mensagem de erro 
+     */
+    public function read($id){
+        $user = new UserModel;
+        $result = $user->find($id);
+        if($result == null){
+            $arrayJson = array(
+                "error" => "User not found"
+            );
+            return response()->json($arrayJson, 404);
+        }else{
+            $arrayJson = $result->getAttributes();
+            unset($arrayJson['password']); // remove pra não mostrar na resposta
+            return response()->json($arrayJson, 200);
+        }        
+    }
+    /**
      * Cria o usuário
      *
      * @param Request $request
      * @return json Retorna um JSON com os dados do usuário criado ou com a mensagem de erro 
      */
     public function create(Request $request){
-
         $store = $this->store($request);
         if( is_array($store) ){
             return response()->json($store, 400);
@@ -40,20 +72,62 @@ class User extends Controller
         }
     }
     /**
+     * Avisa para usar o método PUT para alterar os dados do usuário
+     *
+     * @param Request $request
+     * @return json Retorna um JSON com a o aviso
+     */
+    public function advice(){
+        $arrayJson = array(
+            "error" => "User method PUT for update"
+        );
+        return response()->json($arrayJson, 200);
+    }
+    public function update(Request $request, $id){
+        $store = $this->store($request);
+        if( is_array($store) ){
+            return response()->json($store, 400);
+        }
+        $user = new UserModel;
+        $result = $user->find($id);
+        if($result == null){
+            $arrayJson = array(
+                "error" => "User not found"
+            );
+            return response()->json($arrayJson, 404);
+        }else{
+            $arrayJson = $result->getAttributes();
+            unset($arrayJson['password']); // remove pra não mostrar na resposta            
+        }           
+    }
+    /**
      * Faz as validações
      *
      * @param Request $request
      * @return true|array Retorna true se estiver tudo certo ou uma array com o erro.
      */
     public function store(Request $request){  
-        $validator = Validator::make($request->all(), [
-           'email' => 'required|email|unique:users',
-           'name' => 'required|string|max:255',
-           'last_name' => 'required|string|max:255',
-           'password' => 'required',
-           'password_verified' => 'required|same:password',
-           'cpf' => 'required|max:14',
-       ]);
+        switch ($request->method()) {
+            case 'POST':
+                $validator = Validator::make($request->all(), [
+                    'email' => 'required|email|unique:users',
+                    'name' => 'required|string|max:255',
+                    'last_name' => 'required|string|max:255',
+                    'password' => 'required',
+                    'password_verified' => 'required|same:password',
+                    'cpf' => 'required|max:14',
+                ]);
+                break;
+            case 'PUT':
+                $validator = Validator::make($request->all(), [
+                    'email' => 'email|unique:users',
+                    'name' => 'string|max:255',
+                    'last_name' => 'string|max:255',
+                    'cpf' => 'max:14',
+                ]);
+                break;      
+        }
+        
        if ( $validator->fails() ) {
             $arrayJson = array(
                 "error" => $validator->messages()->first(),
