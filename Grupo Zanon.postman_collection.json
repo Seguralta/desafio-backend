@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "db99708b-6b62-46bd-9bad-66f2a3a477d4",
+		"name": "Grupo Zanon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET http://localhost/api/user/ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic R3J1cG9aYW5vbg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost/api/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"user",
+						"1"
+					]
+				},
+				"description": "Retona os dados de um usuário.\r\nID é campo id retornado quando cria um usuário."
+			},
+			"response": []
+		},
+		{
+			"name": "POST http://localhost/api/user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic R3J1cG9aYW5vbg==",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":  \"tiago\",\n\t\"last_name\":  \"biage\",\n\t\"email\": \"tiagobiage@gmail.com\",\n\t\"password\": \"102030\",\n\t\"password_verified\": \"102030\",\n\t\"cpf\": \"307.522.118.03\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": "Cria um usuário"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT http://localhost/api/user/ID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic R3J1cG9aYW5vbg==",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":  \"tiago5\",\n\t\"last_name\":  \"biage5\",\n\t\"email\": \"tiagobiage5@gmail.com\",\n\t\"cpf\": \"507.522.118.03\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost/api/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"user",
+						"1"
+					]
+				},
+				"description": "Altera o usuário\nID é campo id retornado quando cria um usuário."
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE http://localhost/api/user/ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic R3J1cG9aYW5vbg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost/api/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"user",
+						"1"
+					]
+				},
+				"description": "Deleta um usuário\nID é campo id retornado quando cria um usuário."
+			},
+			"response": []
+		}
+	]
+}
