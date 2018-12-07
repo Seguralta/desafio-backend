@@ -1,3 +1,67 @@
+### Processo necessário para rodar a aplicação no Windows
+- Utilizar o XAMPP ( ou outro de sua preferência ) e apontar o localhost para a pasta /public do projeto (no XAMPP alterar o DocumentRoot do arquivo httpd.conf).
+- Criar um banco de dados com o nome **grupo_zanon**
+- Configurar o banco de dados mysql no arquivo .env que está na raiz do projeto, linhas de 9 a 14. ( esses são login e senha padrões do XAMPP, trocar caso tenha alterado na instalação )
+	- DB_CONNECTION=mysql
+	- DB_HOST=127.0.0.1 
+	- DB_PORT=3306
+	- DB_DATABASE=grupo_zanon
+	- DB_USERNAME=root
+	- DB_PASSWORD=
+- Escolher um dos próximos passos para criar a tabela de usuários:
+	- Utilizar o phpmyadmin do XAMPP ou programa de sua preferência para rodar o SQL dump que está na raiz do projeto com o nome db-mysql.sql ou;
+	- Abrir o CMD na pasta do projeto e rodar o comando **php artisan migrate**
+	- Caso preferir, segue o código para criar a tabela:
+		- CREATE TABLE `users` (
+						`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+						`name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+						`last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+						`email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+						`password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+						`cpf` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+						`created_at` timestamp NULL DEFAULT NULL,
+						`updated_at` timestamp NULL DEFAULT NULL,
+						PRIMARY KEY (`id`)
+						) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+### Instruções básicas de uso dos métodos.
+Na raiz do projeto tem um arquivo do Postiman com todas as requisições (Grupo Zanon.postman_collection.json).
+Para autenticar utilizar no Headers => Authorization: Basic R3J1cG9aYW5vbg==
+
+- GET http://localhost/api/user/ID
+	- Retona os dados de um usuário.
+	- **ID** é campo id retornado quando cria um usuário.
+- POST http://localhost/api/user
+	- Cria um usuário.
+	- Enviar os dados no formato JSON.
+	- Campos:
+		- {
+				"name":  "tiago",
+				"last_name":  "biage",
+				"email": "tiagobiage@gmail.com",
+				"password": "102030",
+				"password_verified": "102030",
+				"cpf": "307.522.118.03"
+			}
+	- Retona os dados do usuário criado.
+- PUT http://localhost/api/user/ID	
+	- Altera um usuário.
+	- **ID** é campo id retornado quando cria um usuário.
+	- Enviar os dados no formato JSON.
+	- Campos:
+		- {
+				"name":  "tiago5",
+				"last_name":  "biage5",
+				"email": "tiagobiage5@gmail.com",
+				"cpf": "507.522.118.03"
+			}
+	- Retona os dados do usuário alterado.
+- DELETE http://localhost/api/user/ID
+	- Apaga um usuário.
+	- **ID** é campo id retornado quando cria um usuário.
+
+---
+
 # Desafio Desenvolvedor BackEnd
 
 Seja parte de um dos grupos de empresas e franqueadoras que mais cresce no Brasil.
